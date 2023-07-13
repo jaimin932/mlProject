@@ -1,12 +1,15 @@
 import os
 import sys
 sys.path.insert(0,'C:/Users/Hp/Desktop/Data Analyst/mlProject/src')
+sys.path.insert(1,'C:/Users/Hp/Desktop/Data Analyst/mlProject/src/Components')
 from exception import CustomException
 from logger import logging
 from sklearn.model_selection import train_test_split
 import pandas as pd
 from dataclasses import dataclass
 
+from data_transformation import DataTransformation
+from data_transformation import DataTransformationConfig
 @dataclass 
 class DataIngestionConfig:
     train_data_path: str=os.path.join('artifact',"train.csv")
@@ -43,5 +46,7 @@ class DataIngestion:
 
 if __name__ == "__main__":
     obj = DataIngestion()
-    obj.initiate_data_ingestion()
+    train_data, test_data =obj.initiate_data_ingestion()
     
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train_data,test_data)
